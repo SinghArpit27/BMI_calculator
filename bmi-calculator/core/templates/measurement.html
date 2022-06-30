@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{
+      background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  {% extends "layout.html" %}
+
+{% block body %}
+
+<h1>
+  Enter Your Details!
+</h1>
+
+{% if bmi %}
+<h2>
+  Your BMI is {{bmi}}.
+</h2>
+{% endif %}
+
+
+<form action="." method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="Save Measurement" />
+</form>
+
+{% endblock %}
+</body>
+</html>
+

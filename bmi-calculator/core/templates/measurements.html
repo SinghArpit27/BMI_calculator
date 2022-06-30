@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+  </style>
+</head>
+<body>
+  {% extends "layout.html" %}
+
+{% block body %}
+
+<h3>
+  Past BMI Records
+</h3>
+
+<table class="table table-responsive table-bordered table-hover table-sm">
+  <thead class="thead-inverse">
+    <tr>
+      <th>Date</th>
+      <th>Height</th>
+      <th>Weight</th>
+      <th>BMI</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  {% for measurement in measurements %}
+  <tr>
+    <td>{{ measurement.measured_at }}</td>
+    <td>{{ measurement.height_in_meters }}</td>
+    <td>{{ measurement.weight_in_kg }}</td>
+    <td>{{ measurement.bmi }}</td>
+    <td><a href="{% url 'delete_measurement' id=measurement.id %}">Details</a></td>
+    <td class="text-center">
+      <form action="/measurements/{{measurement.id}}/" method="post">
+		    {% csrf_token %}
+				<input type="hidden" name="id" value="{{measurement.id}}"/>
+			  <input type="submit" class="btn btn-sm btn-outline-secondary btn-block" value="Delete">
+			</form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+</body>
+</html>
+

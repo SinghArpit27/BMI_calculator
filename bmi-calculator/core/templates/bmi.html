@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h1>
+  Calculate Your BMI
+</h1>
+
+{% if bmi %}
+<h2>
+  Your BMI is {{bmi}}.
+</h2>
+{% endif %}
+
+<!-- action="." is same as action="/bmi/" -->
+<form action="." method="POST">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input type="submit" value="Calculate" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    
+  </style>
+</head>
+<body>
+  {% extends "layout.html" %}
+
+{% block body %}
+
+<h3>
+  Results
+</h3>
+
+<p>
+  <a href="/measurement/">
+    Save a new measurement
+  </a>
+</p>
+
+<table class="table table-responsive table-bordered table-hover table-sm">
+  <thead class="thead-inverse">
+    <tr>
+      <th>Date</th>
+      <th>Height</th>
+      <th>Weight</th>
+      <th>BMI</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  {% for measurement in measurements %}
+  <tr>
+    <td>{{ measurement.measured_at }}</td>
+    <td>{{ measurement.height_in_meters }}</td>
+    <td>{{ measurement.weight_in_kg }}</td>
+    <td>{{ measurement.bmi }}</td>
+    
+    <td class="text-center">
+      <form action="/measurements/{{measurement.id}}/" method="post">
+		    {% csrf_token %}
+				<input type="hidden" name="id" value="{{measurement.id}}"/>
+			  <input type="submit" class="btn btn-sm btn-outline-secondary btn-block" value="Delete">
+			</form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+</body>
+</html>
+
